@@ -4,7 +4,7 @@ abbrev: "NC/RC Call Home Using QUIC"
 category: std
 updates: 8071
 
-docname: draft-kwatsen-netconf-quic-call-home-latest
+docname: draft-ietf-netconf-quic-call-home-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
