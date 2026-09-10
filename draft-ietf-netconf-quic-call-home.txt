@@ -404,12 +404,6 @@ Table of Contents
               Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
               2011, <https://www.rfc-editor.org/rfc/rfc6125>.
 
-   [RFC6520]  Seggelmann, R., Tuexen, M., and M. Williams, "Transport
-              Layer Security (TLS) and Datagram Transport Layer Security
-              (DTLS) Heartbeat Extension", RFC 6520,
-              DOI 10.17487/RFC6520, February 2012,
-              <https://www.rfc-editor.org/rfc/rfc6520>.
-
    [RFC8071]  Watsen, K., "NETCONF Call Home and RESTCONF Call Home",
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8071>.
@@ -439,6 +433,13 @@ Table of Contents
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
+              Cheshire, "Internet Assigned Numbers Authority (IANA)
+              Procedures for the Management of the Service Name and
+              Transport Protocol Port Number Registry", BCP 165,
+              RFC 6335, DOI 10.17487/RFC6335, August 2011,
+              <https://www.rfc-editor.org/rfc/rfc6335>.
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
