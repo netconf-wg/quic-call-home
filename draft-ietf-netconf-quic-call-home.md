@@ -22,8 +22,8 @@ venue:
   type: "Working Group"
   mail: "netconf@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/netconf/"
-  github: "kwatsen/quic-call-home"
-  latest: "https://kwatsen.github.io/quic-call-home/draft-kwatsen-netconf-quic-call-home.html"
+  github: "netconf-wg/quic-call-home"
+  latest: "https://netconf-wg.github.io/quic-call-home/draft-ietf-netconf-quic-call-home.html"
 
 author:
  -
