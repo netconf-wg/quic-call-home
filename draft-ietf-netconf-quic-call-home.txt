@@ -10,7 +10,7 @@ Expires: 14 March 2027
 
 
           NETCONF Call Home and RESTCONF Call Home Using QUIC
-              draft-kwatsen-netconf-quic-call-home-latest
+                draft-ietf-netconf-quic-call-home-latest
 
 Abstract
 
@@ -21,11 +21,10 @@ About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   The latest revision of this draft can be found at
-   https://kwatsen.github.io/quic-call-home/draft-kwatsen-netconf-quic-
-   call-home.html.  Status information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-kwatsen-netconf-quic-call-
-   home/.
+   The latest revision of this draft can be found at https://netconf-
+   wg.github.io/quic-call-home/draft-ietf-netconf-quic-call-home.html.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-netconf-quic-call-home/.
 
    Discussion of this document takes place on the Network Configuration
    Working Group mailing list (mailto:netconf@ietf.org), which is
@@ -33,7 +32,7 @@ About This Document
    Subscribe at https://www.ietf.org/mailman/listinfo/netconf/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/kwatsen/quic-call-home.
+   https://github.com/netconf-wg/quic-call-home.
 
 Status of This Memo
 
