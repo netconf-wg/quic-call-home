@@ -368,7 +368,26 @@ Table of Contents
 
 6.  Operational Considerations
 
-   Please see the last paragram in Section 10.1.2 of [RFC9000].
+   The transports supported in [RFC8071], specifically SSH and TLS, are
+   all TCP-based, which enabled the solution to rely on the full-duplex
+   nature of TCP to tunnel thru middleboxes.  But QUIC is UDP-based, and
+   thus solution entails the server sending an initial UDP datagram
+   instead.  Whilst the effect on the client is the same (i.e., causing
+   it to initiate a secure connection to the server), it cannot do so
+   over a tunnel opened by the server.  Thus this solution has a
+   dependency on middleboxes recognizing and using the server's initial
+   UDP datagram to allow the client-initiated QUIC connection.
+
+   Please note that the last paragraph in Section 10.1.2 of [RFC9000]
+   says:
+
+   A connection will time out if no packets are sent or received for a
+   period longer than the time negotiated using the max_idle_timeout
+   transport parameter; see Section 10.  However, state in middleboxes
+   might time out earlier than that.  Though REQ-5 in [RFC4787]
+   recommends a 2-minute timeout interval, experience shows that sending
+   packets every 30 seconds is necessary to prevent the majority of
+   middleboxes from losing state for UDP flows [GATEWAY].
 
 7.  IANA Considerations
 

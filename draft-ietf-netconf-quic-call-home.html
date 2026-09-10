@@ -1548,7 +1548,18 @@ authentication, and therefore do not introduce an attack vector.<a href="#sectio
       <h2 id="name-operational-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-6-1">Please see the last paragram in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-10.1.2" class="relref">Section 10.1.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">The transports supported in <span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span>, specifically SSH and
+TLS, are all TCP-based, which enabled the solution to rely on
+the full-duplex nature of TCP to tunnel thru middleboxes.  But
+QUIC is UDP-based, and thus solution entails the server sending
+an initial UDP datagram instead.  Whilst the effect on the
+client is the same (i.e., causing it to initiate a secure
+connection to the server), it cannot do so over a tunnel
+opened by the server.  Thus this solution has a dependency on
+middleboxes recognizing and using the server's initial UDP
+datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">Please note that the last paragraph in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-10.1.2" class="relref">Section 10.1.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> says:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3"><code>A connection will time out if no packets are sent or received for a period longer than the time negotiated using the max_idle_timeout transport parameter; see Section 10. However, state in middleboxes might time out earlier than that. Though REQ-5 in [RFC4787] recommends a 2-minute timeout interval, experience shows that sending packets every 30 seconds is necessary to prevent the majority of middleboxes from losing state for UDP flows [GATEWAY].</code><a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-con">
