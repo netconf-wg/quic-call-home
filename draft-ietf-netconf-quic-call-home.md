@@ -28,7 +28,6 @@ author:
     email: "kent+ietf@watsen.net"
 
 normative:
-  RFC6520:
   RFC6125:
   RFC8071:
   RFC8646:
@@ -319,7 +318,6 @@ parameters.  That said, YANG {{RFC7950}} modules for configuring
 NETCONF and RESTCONF servers, including call home, are provided in
 \{\{RFC10010\}\} and \{\{RFC10011\}\} respectively.
 
-
 # Security Considerations {#sec-con}
 
 The solution in this document extends {{RFC8071}} to support call
@@ -354,6 +352,23 @@ authentication, and therefore do not introduce an attack vector.
 # Operational Considerations {#op-con}
 
 Please see the last paragram in {{Section 10.1.2 of RFC9000}}.
+<!--
+-The transports supported in {{RFC8071}}, specifically SSH and
+-TLS, are all TCP-based, which enabled the solution to rely on
+-the full-duplex nature of TCP to tunnel thru middleboxes.  But
+-QUIC is UDP-based, and thus solution entails the server sending
+-an initial UDP datagram instead.  Whilst the effect on the
+-client is the same (i.e., causing it to initiate a secure
+-connection to the server), it cannot do so over a tunnel
+-automatically opened by the server.  Thus this solution has
+-an additional dependency on middleboxes recognizing and using
+-the server's initial UDP datagram to allow the client-initiated
+-QUIC connection.
+-
+-The last paragraph in {{Section 10.1.2 of RFC9000}} says:
+-
+-```A connection will time out if no packets are sent or received for a period longer than the time negotiated using the max_idle_timeout transport parameter; see Section 10. However, state in middleboxes might time out earlier than that. Though REQ-5 in [RFC4787] recommends a 2-minute timeout interval, experience shows that sending packets every 30 seconds is necessary to prevent the majority of middleboxes from losing state for UDP flows [GATEWAY].```
+-->
 
 
 
@@ -363,7 +378,7 @@ Please see the last paragram in {{Section 10.1.2 of RFC9000}}.
    with the service names "netconf-ch-quic" and "restconf-ch-quic".
    These ports will be the default ports for NETCONF Call Home and
    RESTCONF Call Home when using QUIC.  Below is the registration
-   template following the rules in [RFC6335].
+   template following the rules in {{?RFC6335}}.
 
    Service Name:           netconf-ch-quic
    Port Number:            PORT-X
