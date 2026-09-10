@@ -13,10 +13,6 @@ v: 3
 area: "Operations and Management"
 workgroup: "Network Configuration"
 keyword:
- - NETCONF
- - RESTCONF
- - call-home
- - quic
 venue:
   group: "Network Configuration"
   type: "Working Group"
