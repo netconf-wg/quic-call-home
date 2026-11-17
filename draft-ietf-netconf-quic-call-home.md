@@ -64,11 +64,13 @@ This RFC extends NETCONF Call Home and RESTCONF Call Home
 # Introduction
 
 This RFC extends NETCONF Call Home and RESTCONF Call Home
-{{RFC8071}} to support the QUIC protocol {{RFC9000}}.
+{{RFC8071}} to support the QUIC protocol {{RFC9000}} using
+TLS {{RFC9001}}.
 
 RESTCONF {{RFC8040}} supports QUIC with its implicit
 support for HTTP/3 {{RFC9114}}.  NETCONF {{RFC6241}}
-supports QUIC with {{I-D.ietf-netconf-over-quic}}.
+supports QUIC with {{I-D.ietf-netconf-over-quic}}. But
+neither transport mapping supports Call Home using QUIC.
 
 The QUIC-based call home solution presented in this
 document is nearly identical to the TLS-based solution
