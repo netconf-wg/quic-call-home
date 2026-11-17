@@ -153,7 +153,7 @@ Please apply the following replacements:
          NETCONF/RESTCONF                    NETCONF/RESTCONF
               Server                              Client
                 |                                    |
-                |         1. UDO                     |
+                |         1. UDP                     |
                 |----------------------------------->|
                 |                                    |
                 |                                    |
