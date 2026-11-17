@@ -104,18 +104,6 @@ the QUIC protocol.
   assessment.  A risk assessment for this RFC is in the Security
   Considerations section {{sec-con}}.
 
-##  Relation to RFC 9001
-
-  This document uses the QUIC {{RFC9001}} with the exception that
-  the statement "The client initiates the exchange and the server
-  responds" made in {{Section 2.1 of RFC9001}} does not apply.
-  Assuming the reference to client means "QUIC client" and the
-  reference to server means "QUIC server", this statement does
-  not hold true in call home, where the network element is the
-  QUIC server and yet still initiates the UDP exchange.  Security
-  implications related to this change are discussed in Security
-  Considerations {{sec-con}}.
-
 ## The NETCONF/RESTCONF Convention
 
   Throughout the remainder of this document, the term "NETCONF/
