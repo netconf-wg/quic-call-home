@@ -10,22 +10,22 @@
        This RFC extends NETCONF Call Home and RESTCONF Call Home
 [RFC 8071] to support the QUIC protocol [RFC 9000]. 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="draft-ietf-netconf-quic-call-home-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
-    Python 3.14.7
-    ConfigArgParse 1.7.5
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.9.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.7
+    platformdirs 4.14.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.3
+    wcwidth 0.9.4
 -->
 <link href="draft-ietf-netconf-quic-call-home.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1026,7 +1026,7 @@ svg {
   & :is([stroke="white"], [stroke^="#fff"]) {
     stroke: var(--background-color);
   }
-  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+  & :is([fill="black"], [fill^="#000"], :not([fill], [fill] *)) {
     fill: var(--text-color);
   }
   & :is([fill="white"], [fill^="#fff"]) {
@@ -1041,11 +1041,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">NC/RC Call Home Using QUIC</td>
-<td class="right">September 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Watsen</td>
-<td class="center">Expires 14 March 2027</td>
+<td class="center">Expires 22 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1061,12 +1061,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc8071" class="eref">8071</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-10" class="published">10 September 2026</time>
+<time datetime="2026-11-18" class="published">18 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-14">14 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-22">22 May 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1117,7 +1117,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1153,16 +1153,13 @@ svg {
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-applicability-statement" class="internal xref">Applicability Statement</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-relation-to-rfc-9001" class="internal xref">Relation to RFC 9001</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-the-netconf-restconf-conven" class="internal xref">The NETCONF/RESTCONF Convention</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-the-netconf-restconf-conven" class="internal xref">The NETCONF/RESTCONF Convention</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-requirements-terminology" class="internal xref">Requirements Terminology</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
-                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-requirements-terminology" class="internal xref">Requirements Terminology</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.5">
-                <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="auto internal xref">1.5</a>.  <a href="#name-editorial-note-to-be-remove" class="internal xref">Editorial Note (To be removed by RFC Editor)</a></p>
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-editorial-note-to-be-remove" class="internal xref">Editorial Note (To be removed by RFC Editor)</a></p>
 </li>
             </ul>
 </li>
@@ -1227,10 +1224,12 @@ svg {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">This RFC extends NETCONF Call Home and RESTCONF Call Home
-<span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span> to support the QUIC protocol <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span> to support the QUIC protocol <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> using
+TLS <span>[<a href="#RFC9001" class="cite xref">RFC9001</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> supports QUIC with its implicit
 support for HTTP/3 <span>[<a href="#RFC9114" class="cite xref">RFC9114</a>]</span>.  NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>
-supports QUIC with <span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+supports QUIC with <span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span>. But
+neither transport mapping supports Call Home using QUIC.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">The QUIC-based call home solution presented in this
 document is nearly identical to the TLS-based solution
 defined in RFC 8071, with the primary difference being
@@ -1259,68 +1258,52 @@ the QUIC protocol.<a href="#section-1-4" class="pilcrow">¶</a></p>
   vulnerabilities.  Any use of call home with QUIC for purposes other
   than NETCONF or RESTCONF will need a thorough contextual risk
   assessment.  A risk assessment for this RFC is in the Security
-  Considerations section <a href="#sec-con" class="auto internal xref">Section 5</a>.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="relation-to-rfc-9001">
-<section id="section-1.2">
-        <h3 id="name-relation-to-rfc-9001">
-<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-relation-to-rfc-9001" class="section-name selfRef">Relation to RFC 9001</a>
-        </h3>
-<p id="section-1.2-1">This document uses the QUIC <span>[<a href="#RFC9001" class="cite xref">RFC9001</a>]</span> with the exception that
-  the statement "The client initiates the exchange and the server
-  responds" made in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC9001" class="cite xref">RFC9001</a>]</span> does not apply.
-  Assuming the reference to client means "QUIC client" and the
-  reference to server means "QUIC server", this statement does
-  not hold true in call home, where the network element is the
-  QUIC server and yet still initiates the UDP exchange.  Security
-  implications related to this change are discussed in Security
-  Considerations <a href="#sec-con" class="auto internal xref">Section 5</a>.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+  Considerations <a href="#sec-con" class="auto internal xref">Section 5</a>.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="the-netconfrestconf-convention">
-<section id="section-1.3">
+<section id="section-1.2">
         <h3 id="name-the-netconf-restconf-conven">
-<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-the-netconf-restconf-conven" class="section-name selfRef">The NETCONF/RESTCONF Convention</a>
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-the-netconf-restconf-conven" class="section-name selfRef">The NETCONF/RESTCONF Convention</a>
         </h3>
-<p id="section-1.3-1">Throughout the remainder of this document, the term "NETCONF/
+<p id="section-1.2-1">Throughout the remainder of this document, the term "NETCONF/
   RESTCONF" is used as an abbreviation in place of the text "the
   NETCONF or the RESTCONF".  The NETCONF/RESTCONF abbreviation is not
   intended to require or to imply that a client or server must
-  implement both the NETCONF standard and the RESTCONF standard.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+  implement both the NETCONF standard and the RESTCONF standard.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-terminology">
-<section id="section-1.4">
+<section id="section-1.3">
         <h3 id="name-requirements-terminology">
-<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-requirements-terminology" class="section-name selfRef">Requirements Terminology</a>
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-requirements-terminology" class="section-name selfRef">Requirements Terminology</a>
         </h3>
-<p id="section-1.4-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+<p id="section-1.3-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+appear in all capitals, as shown here.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="editorial-note-to-be-removed-by-rfc-editor">
-<section id="section-1.5">
+<section id="section-1.4">
         <h3 id="name-editorial-note-to-be-remove">
-<a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-editorial-note-to-be-remove" class="section-name selfRef">Editorial Note (To be removed by RFC Editor)</a>
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-editorial-note-to-be-remove" class="section-name selfRef">Editorial Note (To be removed by RFC Editor)</a>
         </h3>
-<p id="section-1.5-1">This section is to be removed before publishing as an RFC.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
-<p id="section-1.5-2">This document contains placeholder values that need to be replaced with
+<p id="section-1.4-1">This section is to be removed before publishing as an RFC.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">This document contains placeholder values that need to be replaced with
 finalized values at the time of publication.  This note summarizes all
 of the substitutions that are needed.  No other RFC Editor instructions
-are specified elsewhere in this document.<a href="#section-1.5-2" class="pilcrow">¶</a></p>
-<p id="section-1.5-3">Please apply the following replacements:<a href="#section-1.5-3" class="pilcrow">¶</a></p>
+are specified elsewhere in this document.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-3">Please apply the following replacements:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1.5-4.1">
-            <p id="section-1.5-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.5-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1.4-4.1">
+            <p id="section-1.4-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-1.5-4.2">
-            <p id="section-1.5-4.2.1">PORT-X --&gt; the IANA-assigned port number for NETCONF Call Home (QUIC)<a href="#section-1.5-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-1.4-4.2">
+            <p id="section-1.4-4.2.1">PORT-X --&gt; the IANA-assigned port number for NETCONF Call Home (QUIC)<a href="#section-1.4-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-1.5-4.3">
-            <p id="section-1.5-4.3.1">PORT-Y --&gt; the IANA-assigned port number for RESTCONF Call Home (QUIC)<a href="#section-1.5-4.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-1.4-4.3">
+            <p id="section-1.4-4.3.1">PORT-Y --&gt; the IANA-assigned port number for RESTCONF Call Home (QUIC)<a href="#section-1.4-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1339,7 +1322,7 @@ are specified elsewhere in this document.<a href="#section-1.5-2" class="pilcrow
          NETCONF/RESTCONF                    NETCONF/RESTCONF
               Server                              Client
                 |                                    |
-                |         1. UDO                     |
+                |         1. UDP                     |
                 |-----------------------------------&gt;|
                 |                                    |
                 |                                    |
@@ -1358,8 +1341,8 @@ are specified elsewhere in this document.<a href="#section-1.5-2" class="pilcrow
 <p id="section-2-3">This diagram makes the following points:<a href="#section-2-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2-4">
 <li id="section-2-4.1">
-          <p id="section-2-4.1.1">The NETCONF/RESTCONF server begins by sending an empty UDP
-datagram to the NETCONF/RESTCONF client.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.1.1">The NETCONF/RESTCONF server begins by sending a UDP containing
+the TLS certificate it will present during the QUIC handshake.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-2-4.2">
           <p id="section-2-4.2.1">Using this source IP address of the UDP datagram, the
@@ -1367,7 +1350,7 @@ NETCONF/RESTCONF client initiates a QUIC session to the
 NETCONF/RESTCONF server.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-2-4.3">
-          <p id="section-2-4.3.1">Using this QUICsession, the NETCONF/RESTCONF client initates
+          <p id="section-2-4.3.1">Using this QUIC session, the NETCONF/RESTCONF client initates
 a NETCONF/RESTCONF session to the NETCONF/RESTCONF server.<a href="#section-2-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
@@ -1380,7 +1363,8 @@ a NETCONF/RESTCONF session to the NETCONF/RESTCONF server.<a href="#section-2-4.
       </h2>
 <p id="section-3-1">The term "client" is defined in <span><a href="https://rfc-editor.org/rfc/rfc6241#section-1.1" class="relref">Section 1.1</a> of [<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and
 <span><a href="https://rfc-editor.org/rfc/rfc8040#section-1.1.5" class="relref">Section 1.1.5</a> of [<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  In the context of network management,
-the NETCONF/RESTCONF client might be a network management system.<a href="#section-3-1" class="pilcrow">¶</a></p>
+the NETCONF/RESTCONF client might be a controller, orchestrator, or
+network management system.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="protocol-operation">
 <section id="section-3.1">
         <h3 id="name-protocol-operation">
@@ -1390,44 +1374,52 @@ the NETCONF/RESTCONF client might be a network management system.<a href="#secti
     NETCONF/RESTCONF servers.  The client <span class="bcp14">MUST</span> support receiving
     UDP datagrams on the IANA-assigned ports defined in <a href="#iana-con" class="auto internal xref">Section 7</a>,
     but <span class="bcp14">MAY</span> be configured to listen to a different port.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">C2. Upon receiving a UDP datagram, the NETCONF/RESTCONF client ensures
-    that the datagram contains at least 1200 bytes.  If the datagram
-    contains less than 1200 bytes, the NETCONF/RESTCONF client stops
-    processing the connection attempt.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">C3. The NETCONF/RESTCONF client initiates the standard QUIC client
+<p id="section-3.1-2">C2. Upon receiving a UDP datagram, the NETCONF/RESTCONF client <span class="bcp14">MUST</span>
+    ensure that the datagram contains at least 1200 bytes and <span class="bcp14">SHOULD</span>
+    monitor the use of the datagram's source IP address and port for
+    excessive connection attempts (see <a href="#sec-con" class="auto internal xref">Section 5</a> for details).<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">C3. The NETCONF/RESTCONF client extracts the NETCONF/RESTCONF server's
+    TLS certificate from the UDP datagram.  The NETCONF/RESTCONF client
+    <span class="bcp14">SHOULD</span> monitor the use of the TLS certificate for excessive connection
+    attempts (this can be done before certificate validation), <span class="bcp14">MUST</span>
+    validate the server's certificate, and <span class="bcp14">MUST</span> ensure that the
+    certificate belongs to a server that the client is willing to
+    connect with (see <a href="#sec-con" class="auto internal xref">Section 5</a> for details).<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-4">
+<pre>
+To validate the certificate, the client MUST either use certificate
+path validation to a preconfigured issuer certificate or compare
+the certificate to a previously trusted or "pinned" value.  If the
+certificate contains revocation checking information, the
+NETCONF/RESTCONF client SHOULD check the revocation status of
+the certificate.
+
+To ensure that the certificate belongs to a server that the client
+is willing to connect with, the client asserts the certificate
+encodes an "identifier" {{RFC6125}} that the client had awareness
+of prior to the connection attempt.  How identifiers are encoded
+in certificates MAY be determined by a policy associated with
+the certificate's issuer.  For instance, a given issuer may be
+known to only sign IDevID certificates {{Std-802.1AR-2009}}
+having a unique identifier (e.g., serial number) in the X.509
+certificate's "CommonName" field.
+</pre><a href="#section-3.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-3.1-5">C4. The NETCONF/RESTCONF client initiates the standard QUIC client
     <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> protocol to the IP address and port extracted from
-    the received UDP datagram.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">C4. As part of establishing the QUIC connection, the NETCONF/RESTCONF
-    client <span class="bcp14">MUST</span> validate the server's presented certificate.  This
-    validation <span class="bcp14">MAY</span> be accomplished by certificate path validation
-    or by comparing the certificate to a previously trusted or
-    "pinned" value.  If the certificate contains revocation checking
-    information, the NETCONF/RESTCONF client <span class="bcp14">SHOULD</span> check the
-    revocation status of the certificate.  If it is determined that
-    a certificate has been revoked, the client <span class="bcp14">MUST</span> immediately
-    close the connection.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">C5. If certificate path validation is used, the NETCONF/RESTCONF
-    client <span class="bcp14">MUST</span> ensure that the presented certificate has a valid
-    chain of trust to a preconfigured issuer certificate, and that
-    the presented certificate encodes an "identifier" <span>[<a href="#RFC6125" class="cite xref">RFC6125</a>]</span> that
-    the client had awareness of prior to the connection attempt.  How
-    identifiers are encoded in certificates <span class="bcp14">MAY</span> be determined by a
-    policy associated with the certificate's issuer.  For instance, a
-    given issuer may be known to only sign IDevID certificates
-    <span>[<a href="#Std-802.1AR-2009" class="cite xref">Std-802.1AR-2009</a>]</span> having a unique identifier (e.g., serial
-    number) in the X.509 certificate's "CommonName" field.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">C6. After the server's certificate is validated, the QUIC protocol
-    proceeds as normal to establish a QUIC connection.  When performing
-    client authentication with the NETCONF/RESTCONF server, the
-    NETCONF/RESTCONF client <span class="bcp14">MUST</span> ensure to only use credentials
-    that it had previously associated for the NETCONF/RESTCONF
-    server's presented server certificate.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">C7. Once the QUIC connection is established, the NETCONF/RESTCONF
+    the received UDP datagram.  As part of establishing the QUIC
+    connection, the NETCONF/RESTCONF client <span class="bcp14">MUST</span> assert that the
+    server's presented certificate is the same as extracted in step
+    C3.  Since the certificate was validated before, it does not
+    need to be validated again here.  After the server's certificate
+    is validated, the QUIC protocol proceeds as normal to establish
+    a QUIC connection.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-6">C5. Once the QUIC connection is established, the NETCONF/RESTCONF
     client starts either the NETCONF-client <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF-client
     <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> protocol.  Assuming the use of the IANA-assigned ports,
     the NETCONF-client protocol is started when the UDP datagram is
     received on port PORT-X and the RESTCONF-client protocol is
-    started when the the UDP datagram is received on port PORT-Y.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+    started when the the UDP datagram is received on port PORT-Y.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="configuration-data-model">
@@ -1439,7 +1431,7 @@ the NETCONF/RESTCONF client might be a network management system.<a href="#secti
 of this document.  This includes configuration that might be used to
 enable listening for call home connections, configuring trusted
 certificate issuers, and configuring identifiers for expected
-connections.  That said, YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> modules for configuring a
+connections.  That said, YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> modules for configuring
 NETCONF and RESTCONF clients, including call home, are provided in
 {{RFC10010}} and {{RFC10011}} respectively.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -1459,8 +1451,9 @@ the NETCONF/RESTCONF server might be a network element or a device.<a href="#sec
         <h3 id="name-protocol-operation-2">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-protocol-operation-2" class="section-name selfRef">Protocol Operation</a>
         </h3>
-<p id="section-4.1-1">S1. The NETCONF/RESTCONF server sends a UDP datagram containing at
-    least 1200 bytes to the NETCONF/RESTCONF client.  The server <span class="bcp14">MUST</span>
+<p id="section-4.1-1">S1. The NETCONF/RESTCONF server sends a UDP datagram containing the
+    TLS certificate intended to be used for the QUIC connection,
+    padded out to at least 1200 bytes.  The server <span class="bcp14">MUST</span>
     support connecting to one of the IANA-assigned ports defined in
     <a href="#iana-con" class="auto internal xref">Section 7</a>, but <span class="bcp14">MAY</span> be configured to connect to a different port.
     Using the IANA-assigned ports, the server connects to port PORT-X
@@ -1472,19 +1465,19 @@ the NETCONF/RESTCONF server might be a network element or a device.<a href="#sec
     server will send its certificate to the NETCONF/RESTCONF client.
     The server <span class="bcp14">MUST</span> also send all intermediate certificates leading
     up to a well known and trusted issuer.  How to send a list of
-    certificates is defined in <span><a href="https://rfc-editor.org/rfc/rfc8646#section-4.4.2." class="relref">Section 4.4.2.</a> of [<a href="#RFC8646" class="cite xref">RFC8646</a>]</span>.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+    certificates is defined in <span><a href="https://rfc-editor.org/rfc/rfc9846#section-4.5.1." class="relref">Section 4.5.1.</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">S4. Establishing a QUIC session requires server authentication
     of client credentials in all cases except with RESTCONF, where
     some client authentication schemes occur after the TLS
     connection has been established.  If TLS-level client
     authentication is required, and the client is unable to
     successfully authenticate itself to the server in an amount
-    of time defined by local policy, the server <span class="bcp14">MUST</span> close the
-    connection.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+    of time defined by local policy, or 30 seconds if unspecified,
+    the server <span class="bcp14">MUST</span> close the connection.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-5">S5. Once the QUIC connection is established, depending on how the
     NETCONF/RESTCONF server is configured, it starts either the
     NETCONF-server or RESTCONF-server over QUIC protocol, per
-    <span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span> and <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> respectively..
+    <span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span> and <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> respectively.
     Assuming the use of the IANA-assigned ports, the NETCONF-server
     over QUIC protocol is used after connecting to remote port
     PORT-X and the RESTCONF-server protocol is used after
@@ -1493,9 +1486,9 @@ the NETCONF/RESTCONF server might be a network element or a device.<a href="#sec
     server, as the connection initiator, <span class="bcp14">SHOULD</span> actively test the
     aliveness of the connection using a keep-alive mechanism.  The
     NETCONF/RESTCONF server <span class="bcp14">SHOULD</span> send PING Frame <span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.2" class="relref">Section 19.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>, and ensure an ACK Frame <span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.3" class="relref">Section 19.3</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>
-    in received in an amount of time set by local policy.  If the
-    connection is lost, the NETCONF/RESTCONF server should initiate
-    is new connection by going back to S1.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+    in received in an amount of time set by local policy, or 30 seconds
+    if unspecified.  If the connection is deemed lost, the NETCONF/RESTCONF
+    server <span class="bcp14">SHOULD</span> initiate a new connection by going back to S1.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="configuration-data-model-1">
@@ -1519,28 +1512,32 @@ NETCONF and RESTCONF servers, including call home, are provided in
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-5-1">The solution in this document extends <span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span> to support call
-home using QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> for the NETCONF and RESTCONF protocols,
-<span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span> and <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> respectively.  The
-security considerations described in those documents apply here as
-well.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">The solution in this document shims a standard QUIC client initated
-connection by having the QUIC server start a connection by asking
-the QUIC client to start a standard QUIC-client connection back to
-it.  Thus the security analysis focuses on this interaction.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">An analysis for the unprotected role reversal is in <span><a href="https://rfc-editor.org/rfc/rfc8071#section-5" class="relref">Section 5</a> of [<a href="#RFC8071" class="cite xref">RFC8071</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">In order to thwart an amplication attack, the initial UDP datagram
-must be at least 1200 bytes.  In order to thwart an injection
-attack, the payload of initial UDP datagram is discarded.  In order
-to thwart a denial of service attack, precautions mitigating DoS
-attacks are recommended, such as temporarily blacklisting the
-source IP address and port  after a set number of unsuccessful
-connection attempts.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">This document recommends the NETCONF/RESTCONF server, as the
+home using QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> with TLS <span>[<a href="#RFC9001" class="cite xref">RFC9001</a>]</span> for the NETCONF
+and RESTCONF protocols, <span>[<a href="#I-D.ietf-netconf-over-quic" class="cite xref">I-D.ietf-netconf-over-quic</a>]</span> and <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>
+respectively.  The security considerations described in those documents
+apply here as well.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The solution in this document introduces a protocol interaction that
+occurs before a standard QUIC-client-initated connection.  Thus the
+security analysis in this section focuses on this protocol interaction.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">In step C2, ensuring the datagram packet is at least 1200 bytes thwarts
+the amplication attack described in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-14.1" class="relref">Section 14.1</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">In steps C2 and C3, monitoring for source IP address/port and server
+certificates for excessive use can thwart denial of service (DoS) attacks.
+Precautions mitigating DoS attacks are recommended, such as temporarily
+blacklisting the source IP address/port or server certificate after a set
+number of unsuccessful connection attempts.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">In step C3, ensuring that the server certificate belongs to a server that
+the client is willing to connect with thwarts additional possible
+denial-of-service (DoS) attacks.  Note that, in some cases, the client
+may not be aware of the server's identity before the first connection,
+and yet still be "willing" to connect so long as the server certificate
+is valid.<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">Step S6 recommends the NETCONF/RESTCONF server, as the
 connection initiator, to actively test the aliveness of the
-QUIC connection by sending a PING Frame and expecting an ACK
+QUIC connection by sending a QUIC PING Frame and expecting an QUIC ACK
 frame in an amount of time set by local policy.  The PING
 and ACK frames are cryptographically protected, after mutual
-authentication, and therefore do not introduce an attack vector.<a href="#section-5-5" class="pilcrow">¶</a></p>
+authentication, and therefore do not introduce an attack vector.<a href="#section-5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="op-con">
@@ -1548,18 +1545,21 @@ authentication, and therefore do not introduce an attack vector.<a href="#sectio
       <h2 id="name-operational-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-6-1">The transports supported in <span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span>, specifically SSH and
-TLS, are all TCP-based, which enabled the solution to rely on
-the full-duplex nature of TCP to tunnel thru middleboxes.  But
-QUIC is UDP-based, and thus solution entails the server sending
-an initial UDP datagram instead.  Whilst the effect on the
-client is the same (i.e., causing it to initiate a secure
-connection to the server), it cannot do so over a tunnel
-opened by the server.  Thus this solution has a dependency on
-middleboxes recognizing and using the server's initial UDP
-datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Please note that the last paragraph in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-10.1.2" class="relref">Section 10.1.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> says:<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3"><code>A connection will time out if no packets are sent or received for a period longer than the time negotiated using the max_idle_timeout transport parameter; see Section 10. However, state in middleboxes might time out earlier than that. Though REQ-5 in [RFC4787] recommends a 2-minute timeout interval, experience shows that sending packets every 30 seconds is necessary to prevent the majority of middleboxes from losing state for UDP flows [GATEWAY].</code><a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-1">This solution has a dependency on middleboxes recognizing and
+using the server's initial UDP datagram to allow the
+client-initiated QUIC connection.  For instance, firewalls
+<span class="bcp14">SHOULD</span> create impicit rules to allow the client's QUIC
+connection to reach the server.  This differs from <span>[<a href="#RFC8071" class="cite xref">RFC8071</a>]</span>
+could rely on the full-duplex nature of TCP to tunnel through
+middleboxes.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">Steps C2, C3, and C4 describe conditions that, if not met, the
+client <span class="bcp14">MUST</span> drop the connection attempt.  Clients <span class="bcp14">SHOULD</span> log
+such errors so that Operators can diagnose errors.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">Steps S4 and S6 regard servers timing out connection
+attempts if needed.  Servers <span class="bcp14">SHOULD</span> log such errors so that
+Operators can diagnose errors.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">Additionally, note that the last paragraph in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-10.1.2" class="relref">Section 10.1.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> says:<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5"><code>A connection will time out if no packets are sent or received for a period longer than the time negotiated using the max_idle_timeout transport parameter; see Section 10. However, state in middleboxes might time out earlier than that. Though REQ-5 in [RFC4787] recommends a 2-minute timeout interval, experience shows that sending packets every 30 seconds is necessary to prevent the majority of middleboxes from losing state for UDP flows.</code><a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-con">
@@ -1615,13 +1615,17 @@ datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" cl
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8646">[RFC8646]</dt>
-        <dd>
-<span class="refTitle">"Not Issued"</span>, <span class="seriesInfo">RFC 8646</span>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8646">https://www.rfc-editor.org/rfc/rfc8646</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9001">[RFC9001]</dt>
+        <dd>
+<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="seriesInfo">RFC 9001</span>, <span class="seriesInfo">DOI 10.17487/RFC9001</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9001">https://www.rfc-editor.org/rfc/rfc9001</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9846">[RFC9846]</dt>
+      <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9846</span>, <span class="seriesInfo">DOI 10.17487/RFC9846</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9846">https://www.rfc-editor.org/rfc/rfc9846</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1634,7 +1638,7 @@ datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" cl
 <dl class="references">
 <dt id="I-D.ietf-netconf-over-quic">[I-D.ietf-netconf-over-quic]</dt>
         <dd>
-<span class="refAuthor">Dai, J.</span>, <span class="refAuthor">Yu, S.</span>, <span class="refAuthor">Cheng, W.</span>, <span class="refAuthor">Blanchet, M.</span>, and <span class="refAuthor">P. Andersson</span>, <span class="refTitle">"NETCONF over QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netconf-over-quic-11</span>, <time datetime="2026-08-25" class="refDate">25 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netconf-over-quic-11">https://datatracker.ietf.org/doc/html/draft-ietf-netconf-over-quic-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Dai, J.</span>, <span class="refAuthor">Yu, S.</span>, <span class="refAuthor">Cheng, W.</span>, <span class="refAuthor">Blanchet, M.</span>, and <span class="refAuthor">P. Andersson</span>, <span class="refTitle">"NETCONF over QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netconf-over-quic-13</span>, <time datetime="2026-10-25" class="refDate">25 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netconf-over-quic-13">https://datatracker.ietf.org/doc/html/draft-ietf-netconf-over-quic-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6241">[RFC6241]</dt>
         <dd>
@@ -1651,10 +1655,6 @@ datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" cl
 <dt id="RFC8040">[RFC8040]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9001">[RFC9001]</dt>
-        <dd>
-<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="seriesInfo">RFC 9001</span>, <span class="seriesInfo">DOI 10.17487/RFC9001</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9001">https://www.rfc-editor.org/rfc/rfc9001</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9114">[RFC9114]</dt>
         <dd>
@@ -1676,7 +1676,8 @@ datagram to allow the client-initiated QUIC connection.<a href="#section-6-1" cl
       </h2>
 <p id="appendix-A-1">The author would like to thank the following for lively discussions
 on list and in the halls (ordered by first name):
-  Lucas Pardu.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+  Lucas Pardu,
+  and Mirja Kühlewind.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

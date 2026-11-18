@@ -4,9 +4,9 @@
 
 Network Configuration                                          K. Watsen
 Internet-Draft                                           Watsen Networks
-Updates: 8071 (if approved)                            10 September 2026
+Updates: 8071 (if approved)                             18 November 2026
 Intended status: Standards Track                                        
-Expires: 14 March 2027
+Expires: 22 May 2027
 
 
           NETCONF Call Home and RESTCONF Call Home Using QUIC
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 March 2027.
+   This Internet-Draft will expire on 22 May 2027.
 
 Copyright Notice
 
@@ -69,10 +69,9 @@ Table of Contents
 
    1.  Introduction
      1.1.  Applicability Statement
-     1.2.  Relation to RFC 9001
-     1.3.  The NETCONF/RESTCONF Convention
-     1.4.  Requirements Terminology
-     1.5.  Editorial Note (To be removed by RFC Editor)
+     1.2.  The NETCONF/RESTCONF Convention
+     1.3.  Requirements Terminology
+     1.4.  Editorial Note (To be removed by RFC Editor)
    2.  Solution Overview
    3.  The NETCONF or RESTCONF Client
      3.1.  Protocol Operation
@@ -92,11 +91,12 @@ Table of Contents
 1.  Introduction
 
    This RFC extends NETCONF Call Home and RESTCONF Call Home [RFC8071]
-   to support the QUIC protocol [RFC9000].
+   to support the QUIC protocol [RFC9000] using TLS [RFC9001].
 
    RESTCONF [RFC8040] supports QUIC with its implicit support for HTTP/3
    [RFC9114].  NETCONF [RFC6241] supports QUIC with
-   [I-D.ietf-netconf-over-quic].
+   [I-D.ietf-netconf-over-quic].  But neither transport mapping supports
+   Call Home using QUIC.
 
    The QUIC-based call home solution presented in this document is
    nearly identical to the TLS-based solution defined in RFC 8071, with
@@ -127,20 +127,9 @@ Table of Contents
    vulnerabilities.  Any use of call home with QUIC for purposes other
    than NETCONF or RESTCONF will need a thorough contextual risk
    assessment.  A risk assessment for this RFC is in the Security
-   Considerations section Section 5.
+   Considerations Section 5.
 
-1.2.  Relation to RFC 9001
-
-   This document uses the QUIC [RFC9001] with the exception that the
-   statement "The client initiates the exchange and the server responds"
-   made in Section 2.1 of [RFC9001] does not apply.  Assuming the
-   reference to client means "QUIC client" and the reference to server
-   means "QUIC server", this statement does not hold true in call home,
-   where the network element is the QUIC server and yet still initiates
-   the UDP exchange.  Security implications related to this change are
-   discussed in Security Considerations Section 5.
-
-1.3.  The NETCONF/RESTCONF Convention
+1.2.  The NETCONF/RESTCONF Convention
 
    Throughout the remainder of this document, the term "NETCONF/
    RESTCONF" is used as an abbreviation in place of the text "the
@@ -148,7 +137,7 @@ Table of Contents
    intended to require or to imply that a client or server must
    implement both the NETCONF standard and the RESTCONF standard.
 
-1.4.  Requirements Terminology
+1.3.  Requirements Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -156,7 +145,7 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-1.5.  Editorial Note (To be removed by RFC Editor)
+1.4.  Editorial Note (To be removed by RFC Editor)
 
    This section is to be removed before publishing as an RFC.
 
@@ -183,7 +172,7 @@ Table of Contents
             NETCONF/RESTCONF                    NETCONF/RESTCONF
                  Server                              Client
                    |                                    |
-                   |         1. UDO                     |
+                   |         1. UDP                     |
                    |----------------------------------->|
                    |                                    |
                    |                                    |
@@ -200,21 +189,22 @@ Table of Contents
 
    This diagram makes the following points:
 
-   1.  The NETCONF/RESTCONF server begins by sending an empty UDP
-       datagram to the NETCONF/RESTCONF client.
+   1.  The NETCONF/RESTCONF server begins by sending a UDP containing
+       the TLS certificate it will present during the QUIC handshake.
 
    2.  Using this source IP address of the UDP datagram, the NETCONF/
        RESTCONF client initiates a QUIC session to the NETCONF/RESTCONF
        server.
 
-   3.  Using this QUICsession, the NETCONF/RESTCONF client initates a
+   3.  Using this QUIC session, the NETCONF/RESTCONF client initates a
        NETCONF/RESTCONF session to the NETCONF/RESTCONF server.
 
 3.  The NETCONF or RESTCONF Client
 
    The term "client" is defined in Section 1.1 of [RFC6241] and
    Section 1.1.5 of [RFC8040].  In the context of network management,
-   the NETCONF/RESTCONF client might be a network management system.
+   the NETCONF/RESTCONF client might be a controller, orchestrator, or
+   network management system.
 
 3.1.  Protocol Operation
 
@@ -223,43 +213,46 @@ Table of Contents
    datagrams on the IANA-assigned ports defined in Section 7, but MAY be
    configured to listen to a different port.
 
-   C2.  Upon receiving a UDP datagram, the NETCONF/RESTCONF client
-   ensures that the datagram contains at least 1200 bytes.  If the
-   datagram contains less than 1200 bytes, the NETCONF/RESTCONF client
-   stops processing the connection attempt.
+   C2.  Upon receiving a UDP datagram, the NETCONF/RESTCONF client MUST
+   ensure that the datagram contains at least 1200 bytes and SHOULD
+   monitor the use of the datagram's source IP address and port for
+   excessive connection attempts (see Section 5 for details).
 
-   C3.  The NETCONF/RESTCONF client initiates the standard QUIC client
+   C3.  The NETCONF/RESTCONF client extracts the NETCONF/RESTCONF
+   server's TLS certificate from the UDP datagram.  The NETCONF/RESTCONF
+   client SHOULD monitor the use of the TLS certificate for excessive
+   connection attempts (this can be done before certificate validation),
+   MUST validate the server's certificate, and MUST ensure that the
+   certificate belongs to a server that the client is willing to connect
+   with (see Section 5 for details).
+
+   To validate the certificate, the client MUST either use certificate
+   path validation to a preconfigured issuer certificate or compare
+   the certificate to a previously trusted or "pinned" value.  If the
+   certificate contains revocation checking information, the
+   NETCONF/RESTCONF client SHOULD check the revocation status of
+   the certificate.
+
+   To ensure that the certificate belongs to a server that the client
+   is willing to connect with, the client asserts the certificate
+   encodes an "identifier" {{RFC6125}} that the client had awareness
+   of prior to the connection attempt.  How identifiers are encoded
+   in certificates MAY be determined by a policy associated with
+   the certificate's issuer.  For instance, a given issuer may be
+   known to only sign IDevID certificates {{Std-802.1AR-2009}}
+   having a unique identifier (e.g., serial number) in the X.509
+   certificate's "CommonName" field.
+
+   C4.  The NETCONF/RESTCONF client initiates the standard QUIC client
    [RFC9000] protocol to the IP address and port extracted from the
-   received UDP datagram.
+   received UDP datagram.  As part of establishing the QUIC connection,
+   the NETCONF/RESTCONF client MUST assert that the server's presented
+   certificate is the same as extracted in step C3.  Since the
+   certificate was validated before, it does not need to be validated
+   again here.  After the server's certificate is validated, the QUIC
+   protocol proceeds as normal to establish a QUIC connection.
 
-   C4.  As part of establishing the QUIC connection, the NETCONF/
-   RESTCONF client MUST validate the server's presented certificate.
-   This validation MAY be accomplished by certificate path validation or
-   by comparing the certificate to a previously trusted or "pinned"
-   value.  If the certificate contains revocation checking information,
-   the NETCONF/RESTCONF client SHOULD check the revocation status of the
-   certificate.  If it is determined that a certificate has been
-   revoked, the client MUST immediately close the connection.
-
-   C5.  If certificate path validation is used, the NETCONF/RESTCONF
-   client MUST ensure that the presented certificate has a valid chain
-   of trust to a preconfigured issuer certificate, and that the
-   presented certificate encodes an "identifier" [RFC6125] that the
-   client had awareness of prior to the connection attempt.  How
-   identifiers are encoded in certificates MAY be determined by a policy
-   associated with the certificate's issuer.  For instance, a given
-   issuer may be known to only sign IDevID certificates
-   [Std-802.1AR-2009] having a unique identifier (e.g., serial number)
-   in the X.509 certificate's "CommonName" field.
-
-   C6.  After the server's certificate is validated, the QUIC protocol
-   proceeds as normal to establish a QUIC connection.  When performing
-   client authentication with the NETCONF/RESTCONF server, the NETCONF/
-   RESTCONF client MUST ensure to only use credentials that it had
-   previously associated for the NETCONF/RESTCONF server's presented
-   server certificate.
-
-   C7.  Once the QUIC connection is established, the NETCONF/RESTCONF
+   C5.  Once the QUIC connection is established, the NETCONF/RESTCONF
    client starts either the NETCONF-client [RFC6241] or RESTCONF-client
    [RFC8040] protocol.  Assuming the use of the IANA-assigned ports, the
    NETCONF-client protocol is started when the UDP datagram is received
@@ -272,7 +265,7 @@ Table of Contents
    of this document.  This includes configuration that might be used to
    enable listening for call home connections, configuring trusted
    certificate issuers, and configuring identifiers for expected
-   connections.  That said, YANG [RFC7950] modules for configuring a
+   connections.  That said, YANG [RFC7950] modules for configuring
    NETCONF and RESTCONF clients, including call home, are provided in
    {{RFC10010}} and {{RFC10011}} respectively.
 
@@ -284,12 +277,13 @@ Table of Contents
 
 4.1.  Protocol Operation
 
-   S1.  The NETCONF/RESTCONF server sends a UDP datagram containing at
-   least 1200 bytes to the NETCONF/RESTCONF client.  The server MUST
-   support connecting to one of the IANA-assigned ports defined in
-   Section 7, but MAY be configured to connect to a different port.
-   Using the IANA-assigned ports, the server connects to port PORT-X for
-   NETCONF over QUIC, port PORT-Y for RESTCONF over QUIC.
+   S1.  The NETCONF/RESTCONF server sends a UDP datagram containing the
+   TLS certificate intended to be used for the QUIC connection, padded
+   out to at least 1200 bytes.  The server MUST support connecting to
+   one of the IANA-assigned ports defined in Section 7, but MAY be
+   configured to connect to a different port.  Using the IANA-assigned
+   ports, the server connects to port PORT-X for NETCONF over QUIC, port
+   PORT-Y for RESTCONF over QUIC.
 
    S2.  The NETCONF/RESTCONF server listens for incoming QUIC
    connections on the UDP address and port used when it sent the initial
@@ -299,20 +293,20 @@ Table of Contents
    RESTCONF server will send its certificate to the NETCONF/RESTCONF
    client.  The server MUST also send all intermediate certificates
    leading up to a well known and trusted issuer.  How to send a list of
-   certificates is defined in Section 4.4.2. of [RFC8646].
+   certificates is defined in Section 4.5.1. of [RFC9846].
 
    S4.  Establishing a QUIC session requires server authentication of
    client credentials in all cases except with RESTCONF, where some
    client authentication schemes occur after the TLS connection has been
    established.  If TLS-level client authentication is required, and the
    client is unable to successfully authenticate itself to the server in
-   an amount of time defined by local policy, the server MUST close the
-   connection.
+   an amount of time defined by local policy, or 30 seconds if
+   unspecified, the server MUST close the connection.
 
    S5.  Once the QUIC connection is established, depending on how the
    NETCONF/RESTCONF server is configured, it starts either the NETCONF-
    server or RESTCONF-server over QUIC protocol, per
-   [I-D.ietf-netconf-over-quic] and [RFC8040] respectively..  Assuming
+   [I-D.ietf-netconf-over-quic] and [RFC8040] respectively.  Assuming
    the use of the IANA-assigned ports, the NETCONF-server over QUIC
    protocol is used after connecting to remote port PORT-X and the
    RESTCONF-server protocol is used after connecting to remote port
@@ -323,9 +317,9 @@ Table of Contents
    aliveness of the connection using a keep-alive mechanism.  The
    NETCONF/RESTCONF server SHOULD send PING Frame Section 19.2 of
    [RFC9000], and ensure an ACK Frame Section 19.3 of [RFC9000] in
-   received in an amount of time set by local policy.  If the connection
-   is lost, the NETCONF/RESTCONF server should initiate is new
-   connection by going back to S1.
+   received in an amount of time set by local policy, or 30 seconds if
+   unspecified.  If the connection is deemed lost, the NETCONF/RESTCONF
+   server SHOULD initiate a new connection by going back to S1.
 
 4.2.  Configuration Data Model
 
@@ -339,47 +333,59 @@ Table of Contents
 5.  Security Considerations
 
    The solution in this document extends [RFC8071] to support call home
-   using QUIC [RFC9000] for the NETCONF and RESTCONF protocols,
-   [I-D.ietf-netconf-over-quic] and [RFC8040] respectively.  The
-   security considerations described in those documents apply here as
-   well.
+   using QUIC [RFC9000] with TLS [RFC9001] for the NETCONF and RESTCONF
+   protocols, [I-D.ietf-netconf-over-quic] and [RFC8040] respectively.
+   The security considerations described in those documents apply here
+   as well.
 
-   The solution in this document shims a standard QUIC client initated
-   connection by having the QUIC server start a connection by asking the
-   QUIC client to start a standard QUIC-client connection back to it.
-   Thus the security analysis focuses on this interaction.
+   The solution in this document introduces a protocol interaction that
+   occurs before a standard QUIC-client-initated connection.  Thus the
+   security analysis in this section focuses on this protocol
+   interaction.
 
-   An analysis for the unprotected role reversal is in Section 5 of
-   [RFC8071].
+   In step C2, ensuring the datagram packet is at least 1200 bytes
+   thwarts the amplication attack described in Section 14.1 of
+   [RFC9000].
 
-   In order to thwart an amplication attack, the initial UDP datagram
-   must be at least 1200 bytes.  In order to thwart an injection attack,
-   the payload of initial UDP datagram is discarded.  In order to thwart
-   a denial of service attack, precautions mitigating DoS attacks are
-   recommended, such as temporarily blacklisting the source IP address
-   and port after a set number of unsuccessful connection attempts.
+   In steps C2 and C3, monitoring for source IP address/port and server
+   certificates for excessive use can thwart denial of service (DoS)
+   attacks.  Precautions mitigating DoS attacks are recommended, such as
+   temporarily blacklisting the source IP address/port or server
+   certificate after a set number of unsuccessful connection attempts.
 
-   This document recommends the NETCONF/RESTCONF server, as the
-   connection initiator, to actively test the aliveness of the QUIC
-   connection by sending a PING Frame and expecting an ACK frame in an
+   In step C3, ensuring that the server certificate belongs to a server
+   that the client is willing to connect with thwarts additional
+   possible denial-of-service (DoS) attacks.  Note that, in some cases,
+   the client may not be aware of the server's identity before the first
+   connection, and yet still be "willing" to connect so long as the
+   server certificate is valid.
+
+   Step S6 recommends the NETCONF/RESTCONF server, as the connection
+   initiator, to actively test the aliveness of the QUIC connection by
+   sending a QUIC PING Frame and expecting an QUIC ACK frame in an
    amount of time set by local policy.  The PING and ACK frames are
    cryptographically protected, after mutual authentication, and
    therefore do not introduce an attack vector.
 
 6.  Operational Considerations
 
-   The transports supported in [RFC8071], specifically SSH and TLS, are
-   all TCP-based, which enabled the solution to rely on the full-duplex
-   nature of TCP to tunnel thru middleboxes.  But QUIC is UDP-based, and
-   thus solution entails the server sending an initial UDP datagram
-   instead.  Whilst the effect on the client is the same (i.e., causing
-   it to initiate a secure connection to the server), it cannot do so
-   over a tunnel opened by the server.  Thus this solution has a
-   dependency on middleboxes recognizing and using the server's initial
-   UDP datagram to allow the client-initiated QUIC connection.
+   This solution has a dependency on middleboxes recognizing and using
+   the server's initial UDP datagram to allow the client-initiated QUIC
+   connection.  For instance, firewalls SHOULD create impicit rules to
+   allow the client's QUIC connection to reach the server.  This differs
+   from [RFC8071] could rely on the full-duplex nature of TCP to tunnel
+   through middleboxes.
 
-   Please note that the last paragraph in Section 10.1.2 of [RFC9000]
-   says:
+   Steps C2, C3, and C4 describe conditions that, if not met, the client
+   MUST drop the connection attempt.  Clients SHOULD log such errors so
+   that Operators can diagnose errors.
+
+   Steps S4 and S6 regard servers timing out connection attempts if
+   needed.  Servers SHOULD log such errors so that Operators can
+   diagnose errors.
+
+   Additionally, note that the last paragraph in Section 10.1.2 of
+   [RFC9000] says:
 
    A connection will time out if no packets are sent or received for a
    period longer than the time negotiated using the max_idle_timeout
@@ -387,7 +393,7 @@ Table of Contents
    might time out earlier than that.  Though REQ-5 in [RFC4787]
    recommends a 2-minute timeout interval, experience shows that sending
    packets every 30 seconds is necessary to prevent the majority of
-   middleboxes from losing state for UDP flows [GATEWAY].
+   middleboxes from losing state for UDP flows.
 
 7.  IANA Considerations
 
@@ -431,22 +437,27 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-   [RFC8646]  "Not Issued", RFC 8646,
-              <https://www.rfc-editor.org/rfc/rfc8646>.
-
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
               <https://www.rfc-editor.org/rfc/rfc9000>.
+
+   [RFC9001]  Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9001>.
+
+   [RFC9846]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 9846, DOI 10.17487/RFC9846, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9846>.
 
 8.2.  Informative References
 
    [I-D.ietf-netconf-over-quic]
               Dai, J., Yu, S., Cheng, W., Blanchet, M., and P.
               Andersson, "NETCONF over QUIC", Work in Progress,
-              Internet-Draft, draft-ietf-netconf-over-quic-11, 25 August
-              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              netconf-over-quic-11>.
+              Internet-Draft, draft-ietf-netconf-over-quic-13, 25
+              October 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-netconf-over-quic-13>.
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
@@ -468,10 +479,6 @@ Table of Contents
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8040>.
 
-   [RFC9001]  Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, DOI 10.17487/RFC9001, May 2021,
-              <https://www.rfc-editor.org/rfc/rfc9001>.
-
    [RFC9114]  Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
               June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
 
@@ -484,7 +491,8 @@ Table of Contents
 Acknowledgments
 
    The author would like to thank the following for lively discussions
-   on list and in the halls (ordered by first name): Lucas Pardu.
+   on list and in the halls (ordered by first name): Lucas Pardu, and
+   Mirja Kühlewind.
 
 Author's Address
 
