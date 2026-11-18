@@ -30,8 +30,9 @@ author:
 normative:
   RFC6125:
   RFC8071:
-  RFC8646:
   RFC9000:
+  RFC9001:
+  RFC9846:
 
 
 informative:
@@ -39,7 +40,6 @@ informative:
   RFC6241:
   RFC7950:
   RFC8040:
-  RFC9001:
   RFC9114:
   #RFC10010
   #RFC10011
@@ -275,7 +275,7 @@ S3. As part of establishing the QUIC connection, the NETCONF/RESTCONF
     server will send its certificate to the NETCONF/RESTCONF client.
     The server MUST also send all intermediate certificates leading
     up to a well known and trusted issuer.  How to send a list of
-    certificates is defined in {{Section 4.4.2. of RFC8646}}.
+    certificates is defined in {{Section 4.5.1. of RFC9846}}.
 
 S4. Establishing a QUIC session requires server authentication
     of client credentials in all cases except with RESTCONF, where
@@ -327,7 +327,7 @@ occurs before a standard QUIC-client-initated connection.  Thus the
 security analysis in this section focuses on this protocol interaction.
 
 In step C2, ensuring the datagram packet is at least 1200 bytes thwarts
-the amplication attack described in {{RFC9000}}.
+the amplication attack described in {{Section 14.1 of RFC9000}}.
 
 In steps C2 and C3, monitoring for source IP address/port and server
 certificates for excessive use can thwart denial of service (DoS) attacks.
