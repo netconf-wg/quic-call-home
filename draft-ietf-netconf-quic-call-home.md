@@ -359,6 +359,16 @@ connection to reach the server.  This differs from {{RFC8071}}
 could rely on the full-duplex nature of TCP to tunnel through
 middleboxes.
 
+Steps C2, C3, and C4 describe conditions that, if not met, the
+client MUST drop the connection attempt.  Clients SHOULD log
+such errors so that Operators can diagnose errors.
+
+Steps S4 and S6 regard servers timing out connection
+attempts if needed.  Servers SHOULD log such errors so that
+Operators can diagnose errors.
+
+
+
 Additionally, note that the last paragraph in {{Section 10.1.2 of RFC9000}} says:
 
 ```A connection will time out if no packets are sent or received for a period longer than the time negotiated using the max_idle_timeout transport parameter; see Section 10. However, state in middleboxes might time out earlier than that. Though REQ-5 in [RFC4787] recommends a 2-minute timeout interval, experience shows that sending packets every 30 seconds is necessary to prevent the majority of middleboxes from losing state for UDP flows [GATEWAY].```
