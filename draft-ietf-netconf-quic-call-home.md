@@ -283,8 +283,8 @@ S4. Establishing a QUIC session requires server authentication
     connection has been established.  If TLS-level client
     authentication is required, and the client is unable to
     successfully authenticate itself to the server in an amount
-    of time defined by local policy, the server MUST close the
-    connection.
+    of time defined by local policy, or 30 seconds if unspecified,
+    the server MUST close the connection.
 
 S5. Once the QUIC connection is established, depending on how the
     NETCONF/RESTCONF server is configured, it starts either the
@@ -300,9 +300,9 @@ S6. If a persistent connection is desired, the NETCONF/RESTCONF
     aliveness of the connection using a keep-alive mechanism.  The
     NETCONF/RESTCONF server SHOULD send PING Frame {{Section 19.2
     of RFC9000}}, and ensure an ACK Frame {{Section 19.3 of RFC9000}}
-    in received in an amount of time set by local policy.  If the
-    connection is lost, the NETCONF/RESTCONF server SHOULD initiate
-    a new connection by going back to S1.
+    in received in an amount of time set by local policy, or 30 seconds
+    if unspecified.  If the connection is deemed lost, the NETCONF/RESTCONF
+    server SHOULD initiate a new connection by going back to S1.
 
 ## Configuration Data Model
 
