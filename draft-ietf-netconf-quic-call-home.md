@@ -408,6 +408,7 @@ Additionally, note that the last paragraph in {{Section 10.1.2 of RFC9000}} says
 
 The author would like to thank the following for lively discussions
 on list and in the halls (ordered by first name):
+  Bo Wu,
   Lucas Pardu,
   and Mirja Kühlewind.
 
